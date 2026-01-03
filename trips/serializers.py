@@ -34,27 +34,8 @@ class TravelEntrySerializer(serializers.ModelSerializer):
 
 class TripSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    entries = TravelEntrySerializer(many=True, read_only=True)
-    entries_count = serializers.SerializerMethodField()
     
     class Meta:
         model = Trip
-        fields = ['id', 'user', 'title', 'description', 'created_at', 'entries', 'entries_count']
+        fields = ['id', 'user', 'title', 'description', 'created_at']
         read_only_fields = ['created_at', 'user']
-    
-    def get_entries_count(self, obj):
-        return obj.entries.count()
-
-
-class TripListSerializer(serializers.ModelSerializer):
-    """Versión ligera para listados sin incluir todas las entries"""
-    user = UserSerializer(read_only=True)
-    entries_count = serializers.SerializerMethodField()
-    
-    class Meta:
-        model = Trip
-        fields = ['id', 'user', 'title', 'description', 'created_at', 'entries_count']
-        read_only_fields = ['created_at', 'user']
-    
-    def get_entries_count(self, obj):
-        return obj.entries.count()
