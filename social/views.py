@@ -8,7 +8,7 @@ class WishlistViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     
     def get_queryset(self):
-        return Wishlist.objects.filter(user=self.request.user)
+        return Wishlist.objects.filter(user=self.request.user).select_related('entry', 'entry__trip', 'entry__trip__user')
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
