@@ -1,18 +1,11 @@
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Category, Trip, TravelEntry
+from .models import Trip, TravelEntry
 from .serializers import (
-    CategorySerializer, 
     TripSerializer, 
     TravelEntrySerializer
 )
-
-
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class TripViewSet(viewsets.ModelViewSet):

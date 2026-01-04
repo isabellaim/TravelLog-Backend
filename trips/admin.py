@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Category, Trip, TravelEntry
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name']
-    search_fields = ['name']
+from .models import Trip, TravelEntry
 
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
@@ -15,7 +10,8 @@ class TripAdmin(admin.ModelAdmin):
 
 @admin.register(TravelEntry)
 class TravelEntryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'destination_name', 'trip', 'category', 'rating', 'created_at']
-    list_filter = ['category', 'rating', 'created_at']
+    list_display = ['id', 'destination_name', 'trip', 'rating', 'created_at']
+    list_filter = ['rating', 'created_at']
     search_fields = ['destination_name', 'review']
+    date_hierarchy = 'created_at'
     date_hierarchy = 'created_at'
