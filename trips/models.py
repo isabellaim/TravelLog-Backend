@@ -23,12 +23,6 @@ class TravelEntry(models.Model):
     review = models.TextField()
     rating = models.IntegerField(default=5) # Escala 1-5
     foto_url = models.URLField(max_length=500, blank=True, null=True)
-    
-    # Coordenadas para Google Maps / React Native Maps
-    # Usamos DecimalField para máxima precisión geográfica
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -27,7 +27,7 @@ class TravelEntrySerializer(serializers.ModelSerializer):
         model = TravelEntry
         fields = [
             'id', 'trip', 'category', 'category_id', 'destination_name', 
-            'review', 'rating', 'foto_url', 'latitude', 'longitude', 'created_at'
+            'review', 'rating', 'foto_url', 'created_at'
         ]
         read_only_fields = ['created_at']
 
