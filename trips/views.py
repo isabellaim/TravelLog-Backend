@@ -35,8 +35,13 @@ class TripViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def entries(self, request, pk=None):
-        """GET /api/trips/{id}/entries/ - Obtener todas las entradas de un trip específico"""
-        trip = self.get_object()
+        """GET /api/trips/{id}/entries/ - Obtener todas las entradas de un trip específico (de cualquier usuario)"""
+        # Buscar el trip sin filtrar por usuario (permite ver viajes de cualquier persona)
+        try:
+            trip = Trip.objects.get(pk=pk)
+        except Trip.DoesNotExist:
+            return Response({'error': 'Viaje no encontrado'}, status=404)
+        
         entries = TravelEntry.objects.filter(trip=trip).order_by('-created_at')
         serializer = TravelEntrySerializer(entries, many=True)
         return Response(serializer.data)
