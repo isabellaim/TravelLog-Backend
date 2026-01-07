@@ -34,7 +34,7 @@ urlpatterns = [
     # API endpoints
     path('api/', include(router.urls)),
     
-    # Public API (sin autenticación) - Para sustentación
+    # Public API
     path('api/public/trips/', public_trips_list, name='public-trips'),
     
     # Auth endpoints

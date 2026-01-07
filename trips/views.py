@@ -60,14 +60,13 @@ class TravelEntryViewSet(viewsets.ModelViewSet):
         return TravelEntry.objects.filter(trip__user=self.request.user)
 
 
-# API PÚBLICA SIN AUTENTICACIÓN - Para sustentación
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
 def public_trips_list(request):
     """
-    GET /api/public/trips/ - Obtener todos los viajes públicamente (sin autenticación)
+    GET /api/public/trips/ - Obtener todos los viajes públicamente
     """
-    trips = Trip.objects.all().order_by('-created_at')[:10]  # Últimos 10 viajes
+    trips = Trip.objects.all().order_by('-created_at')[:10]  
     serializer = TripSerializer(trips, many=True)
     return Response(serializer.data)
 
