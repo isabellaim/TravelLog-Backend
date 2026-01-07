@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from .models import Trip, TravelEntry
 from .serializers import (
@@ -58,4 +58,16 @@ class TravelEntryViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Solo para operaciones de escritura (PUT, PATCH, DELETE)
         return TravelEntry.objects.filter(trip__user=self.request.user)
+
+
+# API PÚBLICA SIN AUTENTICACIÓN - Para sustentación
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def public_trips_list(request):
+    """
+    GET /api/public/trips/ - Obtener todos los viajes públicamente (sin autenticación)
+    """
+    trips = Trip.objects.all().order_by('-created_at')[:10]  # Últimos 10 viajes
+    serializer = TripSerializer(trips, many=True)
+    return Response(serializer.data)
 

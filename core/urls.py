@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from trips.views import TripViewSet, TravelEntryViewSet
+from trips.views import TripViewSet, TravelEntryViewSet, public_trips_list
 from users.views import ProfileViewSet, register, login, logout, user_detail
 from social.views import WishlistViewSet
 
@@ -33,6 +33,9 @@ urlpatterns = [
     
     # API endpoints
     path('api/', include(router.urls)),
+    
+    # Public API (sin autenticación) - Para sustentación
+    path('api/public/trips/', public_trips_list, name='public-trips'),
     
     # Auth endpoints
     path('api/auth/register/', register, name='register'),
